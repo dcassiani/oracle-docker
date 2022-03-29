@@ -153,10 +153,28 @@ spring:
       ddl-auto: none
     properties:
       dialect: org.hibernate.dialect.Oracle12cDialect
-      
+
+
+NOTICE: some OJDBC library versions may differ about the right place of SYSDBA
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCLCDB
+    username: sys AS SYSDBA
+    
+  - OR - 
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:ORCLCDB?internal_logon=sysdba
+    username: sys
+
 ---
 
+Also, you may test the spring.datasource.url as it is (if you are using the same  OJDBC driver on DBeaver as your are using on your Spring Boot config) on DBeaver > Create or Edit Connection > General > Connection Type: Custom > JDBC URL > {{paste the spring config url}} > try the TEST CONNECTION button
+
 All set! Should be working by now. Just run > gradle bootRun or run it on your IDE and start developing things up.
+
 
 * Step 8 - Flyway Config
 
